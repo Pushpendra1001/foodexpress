@@ -56,6 +56,7 @@ class Order(db.Model):
     delivery_address = db.Column(db.String(200), nullable=False)
     contact = db.Column(db.String(20), nullable=False)
     delivery_option = db.Column(db.String(20), nullable=False)
+    special_instructions = db.Column(db.Text, nullable=True)
     
     user = db.relationship('User', backref=db.backref('orders', lazy=True))
     order_items = db.relationship('OrderItem', backref='order', lazy=True)

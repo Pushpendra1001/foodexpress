@@ -1,20 +1,24 @@
 from flask import render_template, flash, redirect, url_for, request, session, jsonify
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, login_user, logout_user  # Add logout_user here
 from flask_wtf.csrf import generate_csrf, CSRFProtect  # Add CSRFProtect import
 from run import app, db
 from models import User, MenuItem, Order, Category, CartItem, OrderItem
 from forms import LoginForm, RegistrationForm, CheckoutForm
 from functools import wraps
+import os
+from werkzeug.utils import secure_filename
+from datetime import datetime
 
 # Initialize CSRF protection
 csrf = CSRFProtect(app)
 
+# Admin decorator function
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not current_user.is_authenticated or not current_user.is_admin:
-            flash('Access denied. Admin privileges required.', 'danger')
-            return redirect(url_for('login'))
+            flash('You need to be an administrator to access this page.', 'danger')
+            return redirect(url_for('index'))
         return f(*args, **kwargs)
     return decorated_function
 
@@ -167,11 +171,11 @@ def checkout():
                 delivery_option=form.delivery_option.data,
                 delivery_address=form.address.data,
                 contact=form.contact.data,
-                special_instructions=form.special_instructions.data,
                 total=total,
                 status='pending'
             )
             db.session.add(order)
+            db.session.flush()
             
             # Create order items
             for cart_item in cart_items:
@@ -193,7 +197,7 @@ def checkout():
         except Exception as e:
             db.session.rollback()
             app.logger.error(f'Checkout error: {str(e)}')
-            flash('An error occurred while processing your order.', 'danger')
+            flash(f'An error occurred while processing your order: {str(e)}', 'danger')
 
     # Calculate initial delivery fee for GET request
     delivery_fee = 2.99  # Default delivery fee
@@ -256,22 +260,41 @@ def admin_dashboard():
     items = MenuItem.query.all()
     categories = Category.query.all()
     orders = Order.query.all()
+    users = User.query.all()
+    
     return render_template('admin/dashboard.html', 
                          items=items, 
                          categories=categories, 
-                         orders=orders)
+                         orders=orders,
+                         users=users)
 
-# Add these admin routes
+# Update order status route
+@app.route('/admin/orders/<int:order_id>/status', methods=['POST'])
+@login_required
+@admin_required
+def update_order_status(order_id):
+    order = Order.query.get_or_404(order_id)
+    status = request.form.get('status')
+    if status in ['pending', 'processing', 'completed', 'cancelled']:
+        order.status = status
+        db.session.commit()
+        flash(f'Order #{order.id} status updated to {status}.', 'success')
+    return redirect(url_for('admin_dashboard'))
+
+# Update item availability
 @app.route('/admin/items/<int:item_id>/availability', methods=['POST'])
 @login_required
 @admin_required
 def update_item_availability(item_id):
     item = MenuItem.query.get_or_404(item_id)
     data = request.get_json()
-    item.available = data.get('available', False)
-    db.session.commit()
-    return jsonify({'success': True})
+    if 'available' in data:
+        item.available = data['available']
+        db.session.commit()
+        return jsonify({'success': True})
+    return jsonify({'success': False}), 400
 
+# Delete item route
 @app.route('/admin/items/<int:item_id>', methods=['DELETE'])
 @login_required
 @admin_required
@@ -281,24 +304,128 @@ def delete_item(item_id):
     db.session.commit()
     return jsonify({'success': True})
 
+# Delete category route
 @app.route('/admin/categories/<int:category_id>', methods=['DELETE'])
 @login_required
 @admin_required
 def delete_category(category_id):
     category = Category.query.get_or_404(category_id)
+    # Check if category has menu items
+    if category.menu_items:
+        # Option: Delete all menu items in this category
+        for item in category.menu_items:
+            db.session.delete(item)
     db.session.delete(category)
     db.session.commit()
     return jsonify({'success': True})
 
-@app.route('/admin/orders/<int:order_id>/status', methods=['POST'])
+@app.route('/admin/add-item', methods=['POST'])
 @login_required
 @admin_required
-def update_order_status(order_id):
-    order = Order.query.get_or_404(order_id)
-    order.status = request.form.get('status', 'pending')
-    db.session.commit()
-    flash(f'Order #{order.id} status updated to {order.status}', 'success')
-    return redirect(url_for('admin_dashboard'))
+def add_item():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        description = request.form.get('description', '')
+        price = float(request.form.get('price'))
+        category_id = int(request.form.get('category_id'))
+        available = 'available' in request.form
+        
+        # Handle image upload
+        image = request.files.get('image')
+        image_url = 'default-food.jpg'  # Default image
+        
+        if image and image.filename:
+            # Generate a secure filename with timestamp
+            filename = secure_filename(image.filename)
+            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            image_url = f"{timestamp}-{filename}"
+            
+            # Save the image
+            img_path = os.path.join(app.static_folder, 'img', 'menu', image_url)
+            image.save(img_path)
+        
+        # Create new menu item
+        item = MenuItem(
+            name=name,
+            description=description,
+            price=price,
+            category_id=category_id,
+            image_url=image_url,
+            available=available
+        )
+        
+        db.session.add(item)
+        db.session.commit()
+        
+        flash('Menu item added successfully!', 'success')
+        return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/edit-item', methods=['POST'])
+@login_required
+@admin_required
+def edit_item():
+    if request.method == 'POST':
+        item_id = request.form.get('item_id')
+        item = MenuItem.query.get_or_404(item_id)
+        
+        # Update item details
+        item.name = request.form.get('name')
+        item.description = request.form.get('description', '')
+        item.price = float(request.form.get('price'))
+        item.category_id = int(request.form.get('category_id'))
+        item.available = 'available' in request.form
+        
+        # Handle image upload
+        image = request.files.get('image')
+        if image and image.filename:
+            # Generate a secure filename with timestamp
+            filename = secure_filename(image.filename)
+            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            image_url = f"{timestamp}-{filename}"
+            
+            # Save the image
+            img_path = os.path.join(app.static_folder, 'img', 'menu', image_url)
+            image.save(img_path)
+            
+            # Update image URL
+            item.image_url = image_url
+        
+        db.session.commit()
+        
+        flash('Menu item updated successfully!', 'success')
+        return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/add-category', methods=['POST'])
+@login_required
+@admin_required
+def add_category():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        
+        # Create new category
+        category = Category(name=name)
+        
+        db.session.add(category)
+        db.session.commit()
+        
+        flash('Category added successfully!', 'success')
+        return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/edit-category', methods=['POST'])
+@login_required
+@admin_required
+def edit_category():
+    if request.method == 'POST':
+        category_id = request.form.get('category_id')
+        category = Category.query.get_or_404(category_id)
+        
+        # Update category name
+        category.name = request.form.get('name')
+        
+        db.session.commit()
+        
+        flash('Category updated successfully!', 'success')
+        return redirect(url_for('admin_dashboard'))
 
 # Profile
 @app.route('/profile')
@@ -337,6 +464,8 @@ def internal_error(error):
 @login_required
 def order_confirmation(order_id):
     order = Order.query.get_or_404(order_id)
+    
+    # Security check - only allow users to see their own orders (or admin)
     if order.user_id != current_user.id and not current_user.is_admin:
         flash('Access denied.', 'danger')
         return redirect(url_for('index'))
