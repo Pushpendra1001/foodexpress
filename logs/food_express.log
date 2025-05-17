@@ -1,0 +1,16 @@
+2025-05-17 11:39:05,888 ERROR: Checkout error: (MySQLdb.IntegrityError) (1048, "Column 'order_id' cannot be null")
+[SQL: INSERT INTO order_item (order_id, menu_item_id, quantity, price) VALUES (%s, %s, %s, %s)]
+[parameters: (None, 2, 1, 12.99)]
+(Background on this error at: https://sqlalche.me/e/14/gkpj) [in C:\Users\Pushpendra\Desktop\Harshifn\Food Express\FoodExpress\views.py:182]
+2025-05-17 11:39:05,888 ERROR: Checkout error: (MySQLdb.IntegrityError) (1048, "Column 'order_id' cannot be null")
+[SQL: INSERT INTO order_item (order_id, menu_item_id, quantity, price) VALUES (%s, %s, %s, %s)]
+[parameters: (None, 2, 1, 12.99)]
+(Background on this error at: https://sqlalche.me/e/14/gkpj) [in C:\Users\Pushpendra\Desktop\Harshifn\Food Express\FoodExpress\views.py:182]
+2025-05-17 11:39:57,203 ERROR: Checkout error: (MySQLdb.IntegrityError) (1048, "Column 'order_id' cannot be null")
+[SQL: INSERT INTO order_item (order_id, menu_item_id, quantity, price) VALUES (%s, %s, %s, %s)]
+[parameters: (None, 2, 1, 12.99)]
+(Background on this error at: https://sqlalche.me/e/14/gkpj) [in C:\Users\Pushpendra\Desktop\Harshifn\Food Express\FoodExpress\views.py:182]
+2025-05-17 11:39:57,203 ERROR: Checkout error: (MySQLdb.IntegrityError) (1048, "Column 'order_id' cannot be null")
+[SQL: INSERT INTO order_item (order_id, menu_item_id, quantity, price) VALUES (%s, %s, %s, %s)]
+[parameters: (None, 2, 1, 12.99)]
+(Background on this error at: https://sqlalche.me/e/14/gkpj) [in C:\Users\Pushpendra\Desktop\Harshifn\Food Express\FoodExpress\views.py:182]

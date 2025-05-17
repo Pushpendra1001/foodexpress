@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Information - FoodExpress</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar py-2 bg-light">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="top-contact d-none d-md-flex">
+                <span class="me-3"><i class="bi bi-telephone-fill me-1"></i> +1 (234) 567-8900</span>
+                <span><i class="bi bi-envelope-fill me-1"></i> support@foodexpress.com</span>
+            </div>
+            <div class="top-links">
+                <a href="#" class="me-3 text-decoration-none"><i class="bi bi-person-circle me-1"></i> Account</a>
+                <a href="#" class="text-decoration-none"><i class="bi bi-heart me-1"></i> Favorites</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-basket2-fill me-2"></i>FoodExpress
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Cuisines
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Italian</a></li>
+                            <li><a class="dropdown-item" href="#">Asian</a></li>
+                            <li><a class="dropdown-item" href="#">Mexican</a></li>
+                            <li><a class="dropdown-item" href="#">Indian</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">All Cuisines</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Special Offers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Meal Deals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a href="checkout.html" class="btn btn-outline-light position-relative me-2">
+                        <i class="bi bi-cart3"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            2
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="container mt-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="checkout.html">Cart</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Delivery Information</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Checkout Progress -->
+    <div class="container mt-3">
+        <div class="checkout-progress">
+            <div class="row text-center">
+                <div class="col-4">
+                    <div class="progress-step completed">
+                        <div class="step-icon">
+                            <i class="bi bi-cart-check"></i>
+                        </div>
+                        <div class="step-label">Food Cart</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="progress-step active">
+                        <div class="step-icon">
+                            <i class="bi bi-truck"></i>
+                        </div>
+                        <div class="step-label">Delivery Information</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="progress-step">
+                        <div class="step-icon">
+                            <i class="bi bi-credit-card"></i>
+                        </div>
+                        <div class="step-label">Payment</div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress mt-2">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delivery Information -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h4 class="mb-0">Contact Information</h4>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="email" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                        <input type="tel" class="form-control" id="phone" required>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h4 class="mb-0">Delivery Address</h4>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label for="address" class="form-label">Street Address <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="address" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="address2" class="form-label">Apartment, suite, etc. (optional)</label>
+                                        <input type="text" class="form-control" id="address2">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="city" class="form-label">City <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="city" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="state" class="form-label">State/Province <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="state" required>
+                                            <option value="">Select State</option>
+                                            <option value="AL">Alabama</option>
+                                            <option value="AK">Alaska</option>
+                                            <option value="AZ">Arizona</option>
+                                            <!-- More states would be listed here -->
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="zip" class="form-label">Postal Code <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="zip" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="saveAddress">
+                                            <label class="form-check-label" for="saveAddress">
+                                                Save this address for future orders
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h4 class="mb-0">Delivery Options</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="delivery-options">
+                                <div class="delivery-option mb-3">
+                                    <div class="form-check custom-radio">
+                                        <input class="form-check-input" type="radio" name="deliveryOption" id="standard" checked>
+                                        <label class="form-check-label d-flex justify-content-between align-items-center" for="standard">
+                                            <div>
+                                                <span class="d-block fw-bold">Standard Delivery</span>
+                                                <span class="text-muted small">30-45 minutes</span>
+                                            </div>
+                                            <span class="delivery-price">$2.99</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="delivery-option mb-3">
+                                    <div class="form-check custom-radio">
+                                        <input class="form-check-input" type="radio" name="deliveryOption" id="express">
+                                        <label class="form-check-label d-flex justify-content-between align-items-center" for="express">
+                                            <div>
+                                                <span class="d-block fw-bold">Express Delivery</span>
+                                                <span class="text-muted small">20-30 minutes</span>
+                                            </div>
+                                            <span class="delivery-price">$4.99</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="delivery-option">
+                                    <div class="form-check custom-radio">
+                                        <input class="form-check-input" type="radio" name="deliveryOption" id="pickup">
+                                        <label class="form-check-label d-flex justify-content-between align-items-center" for="pickup">
+                                            <div>
+                                                <span class="d-block fw-bold">Pickup</span>
+                                                <span class="text-muted small">Ready in 15-20 minutes</span>
+                                            </div>
+                                            <span class="delivery-price">Free</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h4 class="mb-0">Delivery Time</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="deliveryTime" id="asap" checked>
+                                        <label class="form-check-label" for="asap">
+                                            Deliver ASAP
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="deliveryTime" id="scheduled">
+                                        <label class="form-check-label" for="scheduled">
+                                            Schedule for Later
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-3" id="scheduleTimeContainer" style="display: none;">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label for="deliveryDate" class="form-label">Date</label>
+                                            <input type="date" class="form-control" id="deliveryDate">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="deliveryTime" class="form-label">Time</label>
+                                            <select class="form-select" id="deliveryTime">
+                                                <option value="">Select Time</option>
+                                                <option>11:00 AM</option>
+                                                <option>11:30 AM</option>
+                                                <option>12:00 PM</option>
+                                                <option>12:30 PM</option>
+                                                <!-- More time slots would be listed here -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white">
+                            <h4 class="mb-0">Special Instructions (optional)</h4>
+                        </div>
+                        <div class="card-body">
+                            <textarea class="form-control" id="instructions" rows="3" placeholder="Add any special delivery instructions, dietary requirements, or notes for your order"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                        <a href="checkout.html" class="btn btn-outline-success">
+                            <i class="bi bi-arrow-left me-2"></i>Return to Cart
+                        </a>
+                        <a href="checkout.html" class="btn btn-success">
+                            Continue to Payment<i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="card shadow-sm mb-4 sticky-top" style="top: 100px;">
+                        <div class="card-header bg-white">
+                            <h4 class="mb-0">Order Summary</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="order-items mb-4">
+                                <div class="order-item d-flex mb-3">
+                                    <div class="order-item-img me-3">
+                                        <img src="images/Lasagna Classica.jpg" alt="Food" class="img-fluid rounded" width="60">
+                                        <span class="badge bg-secondary position-absolute">1</span>
+                                    </div>
+                                    <div class="order-item-info flex-grow-1">
+                                        <h6 class="mb-0">Spaghetti Carbonara</h6>
+                                        <p class="text-muted small mb-0">Bella Pasta</p>
+                                    </div>
+                                    <div class="order-item-price">
+                                        <span class="fw-bold">$16.99</span>
+                                    </div>
+                                </div>
+                                <div class="order-item d-flex">
+                                    <div class="order-item-img me-3">
+                                        <img src="images/Appetizers.webp" alt="Food" class="img-fluid rounded" width="60">
+                                        <span class="badge bg-secondary position-absolute">1</span>
+                                    </div>
+                                    <div class="order-item-info flex-grow-1">
+                                        <h6 class="mb-0">Tiramisu</h6>
+                                        <p class="text-muted small mb-0">Bella Pasta</p>
+                                    </div>
+                                    <div class="order-item-price">
+                                        <span class="fw-bold">$8.99</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="promo-code mb-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Promo code">
+                                    <button class="btn btn-outline-success" type="button">Apply</button>
+                                </div>
+                            </div>
+                            
+                            <div class="order-summary">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Subtotal</span>
+                                    <span>$25.98</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Delivery Fee</span>
+                                    <span>$2.99</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Tax</span>
+                                    <span>$2.32</span>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between fw-bold">
+                                    <span>Total</span>
+                                    <span class="text-success">$31.29</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="mb-3">Need Help?</h5>
+                            <p class="mb-2"><i class="bi bi-question-circle me-2"></i> <a href="#" class="text-decoration-none">Delivery Information</a></p>
+                            <p class="mb-2"><i class="bi bi-arrow-return-left me-2"></i> <a href="#" class="text-decoration-none">Cancellation Policy</a></p>
+                            <p class="mb-0"><i class="bi bi-chat-dots me-2"></i> <a href="#" class="text-decoration-none">Contact Support</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">FoodExpress</h5>
+                    <p class="mb-3">Your favorite restaurants delivered to your doorstep. Fast, reliable, and delicious.</p>
+                    <div class="social-links">
+                        <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="me-2"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="me-2"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Restaurants</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">Customer Service</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">My Account</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Track Order</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Delivery Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Refunds & Cancellations</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">Contact Us</h5>
+                    <ul class="list-unstyled contact-info">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> 123 Main Street, New York, NY 10001</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> +1 (234) 567-8900</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i> support@foodexpress.com</li>
+                        <li><i class="bi bi-clock me-2"></i> Mon-Sun: 8AM - 10PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="my-4">
+            
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2025 FoodExpress. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <img src="./images/Payment Methods.png" alt="Payment Methods" width="200px" class="payment-methods">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Show/hide scheduled delivery time options
+        document.getElementById('scheduled').addEventListener('change', function() {
+            document.getElementById('scheduleTimeContainer').style.display = 'block';
+        });
+        
+        document.getElementById('asap').addEventListener('change', function() {
+            document.getElementById('scheduleTimeContainer').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

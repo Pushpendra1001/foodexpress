@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Order Confirmation - FoodExpress{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body text-center p-5">
+                    <div class="mb-4">
+                        <i class="bi bi-check-circle text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <h2 class="mb-4">Thank You for Your Order!</h2>
+                    <p class="lead mb-4">Order #{{ order.id }} has been successfully placed</p>
+                    
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">Order Details</h5>
+                            <div class="row">
+                                <div class="col-md-6 text-start">
+                                    <p><strong>Delivery Option:</strong><br>
+                                        {{ order.delivery_option|title }}</p>
+                                    <p><strong>Delivery Address:</strong><br>
+                                        {{ order.delivery_address }}</p>
+                                </div>
+                                <div class="col-md-6 text-start">
+                                    <p><strong>Contact Number:</strong><br>
+                                        {{ order.contact }}</p>
+                                    <p><strong>Order Status:</strong><br>
+                                        <span class="badge bg-warning">{{ order.status|title }}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive mb-4">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in order.order_items %}
+                                <tr>
+                                    <td>{{ item.menu_item.name }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>${{ "%.2f"|format(item.price) }}</td>
+                                    <td>${{ "%.2f"|format(item.price * item.quantity) }}</td>
+                                </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td colspan="3" class="text-end"><strong>Subtotal:</strong></td>
+                                    <td>${{ "%.2f"|format(order.total - delivery_fee) }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-end"><strong>Delivery Fee:</strong></td>
+                                    <td>${{ "%.2f"|format(delivery_fee) }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                                    <td><strong>${{ "%.2f"|format(order.total) }}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <a href="{{ url_for('index') }}" class="btn btn-success">
+                            <i class="bi bi-house-door me-2"></i>Return to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

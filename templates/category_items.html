@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}{{ category.name }} - FoodExpress{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Home</a></li>
+            <li class="breadcrumb-item active">{{ category.name }}</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-4">{{ category.name }}</h1>
+
+    <!-- Filter and Sort Options -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="d-flex align-items-center">
+                <span class="me-3">Sort by:</span>
+                <select class="form-select" style="width: auto;">
+                    <option value="name">Name</option>
+                    <option value="price_low">Price: Low to High</option>
+                    <option value="price_high">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <span>Showing {{ items|length }} items</span>
+        </div>
+    </div>
+
+    <!-- Items Grid -->
+    <div class="row g-4">
+        {% for item in items %}
+        <div class="col-md-3">
+            <div class="card h-100">
+                <img src="{{ url_for('static', filename='img/menu/' + item.image_url) }}" 
+                     class="card-img-top" alt="{{ item.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ url_for('item_details', id=item.id) }}" class="text-decoration-none text-dark">
+                            {{ item.name }}
+                        </a>
+                    </h5>
+                    <p class="card-text">{{ item.description[:100] }}...</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h5 mb-0">${{ "%.2f"|format(item.price) }}</span>
+                        {% if item.available %}
+                        <form action="{{ url_for('add_to_cart', item_id=item.id) }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <button type="submit" class="btn btn-success btn-sm">
+                                <i class="bi bi-cart-plus"></i> Add
+                            </button>
+                        </form>
+                        {% else %}
+                        <span class="badge bg-danger">Not Available</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
