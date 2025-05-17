@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, session, jsonify
-from flask_login import login_required, current_user, login_user, logout_user  # Add logout_user here
-from flask_wtf.csrf import generate_csrf, CSRFProtect  # Add CSRFProtect import
+from flask_login import login_required, current_user, login_user, logout_user  
+from flask_wtf.csrf import generate_csrf, CSRFProtect  
 from run import app, db
 from models import User, MenuItem, Order, Category, CartItem, OrderItem
 from forms import LoginForm, RegistrationForm, CheckoutForm
@@ -9,10 +9,10 @@ import os
 from werkzeug.utils import secure_filename
 from datetime import datetime
 
-# Initialize CSRF protection
+
 csrf = CSRFProtect(app)
 
-# Admin decorator function
+
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -28,7 +28,7 @@ def utility_processor():
         return Category.query.all()
     return dict(categories=get_categories())
 
-# Landing Page
+
 @app.route('/')
 def index():
     category_id = request.args.get('category', type=int)
@@ -45,7 +45,7 @@ def index():
     categories = Category.query.all()
     return render_template('index.html', items=items, categories=categories)
 
-# Item Details Page
+
 @app.route('/item/<int:id>')
 def item_details(id):
     item = MenuItem.query.get_or_404(id)
@@ -59,13 +59,13 @@ def item_details(id):
     if not can_add_to_cart:
         flash('Please login to add items to your cart', 'info')
     
-    # Use generate_csrf() directly instead of csrf.generate_csrf()
+    
     return render_template('product_details.html', 
                          item=item, 
                          related_items=related_items,
                          can_add_to_cart=can_add_to_cart)
 
-# Cart Routes
+
 @app.route('/cart')
 @login_required
 def cart():
@@ -142,7 +142,7 @@ def empty_cart():
         flash('An error occurred while emptying your cart.', 'danger')
         return redirect(url_for('cart'))
 
-# Checkout
+
 @app.route('/checkout', methods=['GET', 'POST'])
 @login_required
 def checkout():
@@ -156,7 +156,7 @@ def checkout():
 
     if form.validate_on_submit():
         try:
-            # Calculate delivery fee based on option
+            
             delivery_fee = {
                 'express': 5.00,
                 'standard': 2.99,
@@ -165,7 +165,7 @@ def checkout():
 
             total = subtotal + delivery_fee
 
-            # Create new order
+            
             order = Order(
                 user_id=current_user.id,
                 delivery_option=form.delivery_option.data,
@@ -177,7 +177,7 @@ def checkout():
             db.session.add(order)
             db.session.flush()
             
-            # Create order items
+            
             for cart_item in cart_items:
                 order_item = OrderItem(
                     order_id=order.id,
@@ -187,7 +187,7 @@ def checkout():
                 )
                 db.session.add(order_item)
 
-            # Clear cart
+            
             CartItem.query.filter_by(user_id=current_user.id).delete()
             
             db.session.commit()
@@ -199,8 +199,8 @@ def checkout():
             app.logger.error(f'Checkout error: {str(e)}')
             flash(f'An error occurred while processing your order: {str(e)}', 'danger')
 
-    # Calculate initial delivery fee for GET request
-    delivery_fee = 2.99  # Default delivery fee
+    
+    delivery_fee = 2.99  
     total = subtotal + delivery_fee
 
     return render_template('checkout.html', 
@@ -210,7 +210,7 @@ def checkout():
                          delivery_fee=delivery_fee,
                          total=total)
 
-# Authentication
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -224,7 +224,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('index'))
         flash('Invalid email or password', 'danger')
-    return render_template('auth/login.html', form=form)  # Updated path
+    return render_template('auth/login.html', form=form)  
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -244,7 +244,7 @@ def register():
         db.session.commit()
         flash('Registration successful!', 'success')
         return redirect(url_for('login'))
-    return render_template('auth/register.html', form=form)  # Updated path
+    return render_template('auth/register.html', form=form)  
 
 @app.route('/auth/logout')
 @login_required
@@ -252,7 +252,7 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-# Admin Routes
+
 @app.route('/admin')
 @login_required
 @admin_required
@@ -268,7 +268,7 @@ def admin_dashboard():
                          orders=orders,
                          users=users)
 
-# Update order status route
+
 @app.route('/admin/orders/<int:order_id>/status', methods=['POST'])
 @login_required
 @admin_required
@@ -281,7 +281,7 @@ def update_order_status(order_id):
         flash(f'Order #{order.id} status updated to {status}.', 'success')
     return redirect(url_for('admin_dashboard'))
 
-# Update item availability
+
 @app.route('/admin/items/<int:item_id>/availability', methods=['POST'])
 @login_required
 @admin_required
@@ -294,7 +294,7 @@ def update_item_availability(item_id):
         return jsonify({'success': True})
     return jsonify({'success': False}), 400
 
-# Delete item route
+
 @app.route('/admin/items/<int:item_id>', methods=['DELETE'])
 @login_required
 @admin_required
@@ -304,15 +304,15 @@ def delete_item(item_id):
     db.session.commit()
     return jsonify({'success': True})
 
-# Delete category route
+
 @app.route('/admin/categories/<int:category_id>', methods=['DELETE'])
 @login_required
 @admin_required
 def delete_category(category_id):
     category = Category.query.get_or_404(category_id)
-    # Check if category has menu items
+    
     if category.menu_items:
-        # Option: Delete all menu items in this category
+        
         for item in category.menu_items:
             db.session.delete(item)
     db.session.delete(category)
@@ -330,21 +330,21 @@ def add_item():
         category_id = int(request.form.get('category_id'))
         available = 'available' in request.form
         
-        # Handle image upload
+        
         image = request.files.get('image')
-        image_url = 'default-food.jpg'  # Default image
+        image_url = 'default-food.jpg'  
         
         if image and image.filename:
-            # Generate a secure filename with timestamp
+            
             filename = secure_filename(image.filename)
             timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
             image_url = f"{timestamp}-{filename}"
             
-            # Save the image
+            
             img_path = os.path.join(app.static_folder, 'img', 'menu', image_url)
             image.save(img_path)
         
-        # Create new menu item
+        
         item = MenuItem(
             name=name,
             description=description,
@@ -368,26 +368,26 @@ def edit_item():
         item_id = request.form.get('item_id')
         item = MenuItem.query.get_or_404(item_id)
         
-        # Update item details
+        
         item.name = request.form.get('name')
         item.description = request.form.get('description', '')
         item.price = float(request.form.get('price'))
         item.category_id = int(request.form.get('category_id'))
         item.available = 'available' in request.form
         
-        # Handle image upload
+        
         image = request.files.get('image')
         if image and image.filename:
-            # Generate a secure filename with timestamp
+            
             filename = secure_filename(image.filename)
             timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
             image_url = f"{timestamp}-{filename}"
             
-            # Save the image
+            
             img_path = os.path.join(app.static_folder, 'img', 'menu', image_url)
             image.save(img_path)
             
-            # Update image URL
+            
             item.image_url = image_url
         
         db.session.commit()
@@ -402,7 +402,7 @@ def add_category():
     if request.method == 'POST':
         name = request.form.get('name')
         
-        # Create new category
+        
         category = Category(name=name)
         
         db.session.add(category)
@@ -419,7 +419,7 @@ def edit_category():
         category_id = request.form.get('category_id')
         category = Category.query.get_or_404(category_id)
         
-        # Update category name
+        
         category.name = request.form.get('name')
         
         db.session.commit()
@@ -427,13 +427,13 @@ def edit_category():
         flash('Category updated successfully!', 'success')
         return redirect(url_for('admin_dashboard'))
 
-# Profile
+
 @app.route('/profile')
 @login_required
 def profile():
     return render_template('profile.html')
 
-# Category Items
+
 @app.route('/category/<int:category_id>')
 def category_items(category_id):
     category = Category.query.get_or_404(category_id)
@@ -445,13 +445,13 @@ def menu():
     categories = Category.query.all()
     return render_template('menu.html', categories=categories)
 
-# Error Handlers
+
 @app.errorhandler(404)
 def page_not_found(e):
-    # Special handling for missing images
+    
     path = request.path
     if path.startswith('/static/img/'):
-        # Return a default image instead
+        
         return redirect(url_for('static', filename='img/default-food.jpg'))
     return render_template('error.html', error=404), 404
 
@@ -465,12 +465,12 @@ def internal_error(error):
 def order_confirmation(order_id):
     order = Order.query.get_or_404(order_id)
     
-    # Security check - only allow users to see their own orders (or admin)
+    
     if order.user_id != current_user.id and not current_user.is_admin:
         flash('Access denied.', 'danger')
         return redirect(url_for('index'))
     
-    # Calculate delivery fee based on option
+    
     delivery_fee = {
         'express': 5.00,
         'standard': 2.99,
@@ -485,7 +485,7 @@ def order_confirmation(order_id):
 def cleanup(resp_or_exc):
     db.session.remove()
 
-# Add this function to properly close sessions
+
 @app.teardown_request
 def session_cleanup(exception=None):
     db.session.close()

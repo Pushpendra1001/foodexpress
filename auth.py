@@ -21,7 +21,7 @@ def login():
             return redirect(next_page if next_page else url_for('index'))
         flash('Invalid email or password', 'danger')
     
-    return render_template('auth/login.html', form=form)  # Updated path
+    return render_template('auth/login.html', form=form)  
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
@@ -46,7 +46,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         
-        # Log the user in directly after registration
+        
         login_user(user)
         flash('Registration successful! Welcome to FoodExpress!', 'success')
         return redirect(url_for('index'))

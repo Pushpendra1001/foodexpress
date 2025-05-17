@@ -8,10 +8,10 @@ def create_default_images():
     img_dir = os.path.join(app.static_folder, 'img', 'menu')
     os.makedirs(img_dir, exist_ok=True)
     
-    # Add default image
+    
     default_img = os.path.join(app.static_folder, 'img', 'default-food.jpg')
     if not os.path.exists(default_img):
-        # Create a simple default image or copy from somewhere
+        
         try:
             import shutil
             source = os.path.join(app.static_folder, 'img', 'logo.png')
@@ -21,15 +21,15 @@ def create_default_images():
         except Exception as e:
             print(f"Could not create default image: {e}")
     
-    # List of needed food images
+    
     food_images = ['burger.jpg', 'pizza.jpg', 'fries.jpg', 'cola.jpg', 'cake.jpg']
     
-    # Create empty placeholder files if they don't exist
+    
     for img in food_images:
         img_path = os.path.join(img_dir, img)
         if not os.path.exists(img_path):
             try:
-                # Just copy the default image as a placeholder
+                
                 shutil.copy(default_img, img_path)
                 print(f"Created placeholder for {img}")
             except Exception as e:
@@ -41,11 +41,11 @@ def init_db():
         create_default_images()
         
         print("Creating database tables...")
-        # Create all tables
+        
         db.create_all()
         print("Tables created successfully!")
         
-        # Add Categories
+        
         print("Adding categories...")
         if Category.query.count() == 0:
             categories = [
@@ -60,7 +60,7 @@ def init_db():
         else:
             print("Categories already exist, skipping")
         
-        # Add sample menu items
+        
         print("Adding menu items...")
         if MenuItem.query.count() == 0:
             menu_items = [
@@ -111,13 +111,13 @@ def init_db():
         else:
             print("Menu items already exist, skipping")
         
-        # Create admin user if it doesn't exist
+        
         print("Setting up admin user...")
         admin = User.query.filter_by(email='admin@example.com').first()
         if not admin:
             admin = User(
                 username='admin',
-                email='admin@example.com',
+                email='admin@gmail.com',
                 password_hash=generate_password_hash('admin123'),
                 is_admin=True,
                 address='123 Admin St',

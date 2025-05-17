@@ -1,12 +1,12 @@
 from run import db
 from models import User, Cuisine, Restaurant, MenuItem
 
-# Create admin user
+
 admin = User(name='Admin', email='admin@example.com', is_admin=True)
 admin.set_password('admin123')
 db.session.add(admin)
 
-# Create cuisines
+
 cuisines = ['Italian', 'Indian', 'Chinese', 'Mexican']
 for cuisine_name in cuisines:
     cuisine = Cuisine(name=cuisine_name)
@@ -14,7 +14,7 @@ for cuisine_name in cuisines:
 
 db.session.commit()
 
-# Create sample restaurant
+
 restaurant = Restaurant(
     name='Sample Restaurant',
     description='A great place to eat',
@@ -26,7 +26,7 @@ restaurant = Restaurant(
 db.session.add(restaurant)
 db.session.commit()
 
-# Add menu items
+
 items = [
     {
         'name': 'Pizza Margherita',

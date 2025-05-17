@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="./style/styles.css">
 </head>
 <body>
-    <!-- Top Bar -->
     <div class="top-bar py-2 bg-light">
         <div class="container d-flex justify-content-between align-items-center">
             <div class="top-contact d-none d-md-flex">
@@ -23,7 +22,6 @@
         </div>
     </div>
 
-    <!-- Main Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="./index.html">
@@ -80,35 +78,63 @@
 
     {% block content %}
     <div class="container py-5">
+        <div class="checkout-progress mb-4">
+            <div class="row text-center">
+                <div class="col-4">
+                    <div class="progress-step completed">
+                        <div class="step-icon">
+                            <i class="bi bi-cart-check"></i>
+                        </div>
+                        <div class="step-label">Cart</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="progress-step active">
+                        <div class="step-icon">
+                            <i class="bi bi-truck"></i>
+                        </div>
+                        <div class="step-label">Delivery</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="progress-step">
+                        <div class="step-icon">
+                            <i class="bi bi-credit-card"></i>
+                        </div>
+                        <div class="step-label">Payment</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-8">
                 <div class="card shadow-sm mb-4">
                     <div class="card-body">
                         <h3 class="card-title mb-4">Delivery Details</h3>
-                        <form method="POST">
+                        <form method="POST" action="{{ url_for('checkout') }}">
                             {{ form.csrf_token }}
                             
-                            <!-- Delivery Options -->
                             <div class="mb-4">
-                                <label class="form-label">{{ form.delivery_option.label }}</label>
+                                <h5>Delivery Option</h5>
                                 <div class="row g-3">
-                                    {% for subfield in form.delivery_option %}
+                                    {% for option in form.delivery_option %}
                                     <div class="col-md-4">
-                                        <div class="card {% if subfield.checked %}border-success{% endif %}">
+                                        <div class="card {% if option.checked %}border-success{% endif %}">
                                             <div class="card-body">
                                                 <div class="form-check">
-                                                    {{ subfield(class="form-check-input") }}
-                                                    {{ subfield.label(class="form-check-label fw-bold") }}
+                                                    {{ option(class="form-check-input") }}
+                                                    {{ option.label(class="form-check-label") }}
                                                 </div>
-                                                <div class="delivery-info small text-muted mt-2">
-                                                    {% if subfield.data == "express" %}
-                                                    <p>Delivered within 30 minutes<br>Fee: $5.00</p>
-                                                    {% elif subfield.data == "standard" %}
-                                                    <p>Delivered within 60 minutes<br>Fee: $2.99</p>
+                                                <small class="text-muted">
+                                                    {% if option.data == 'express' %}
+                                                        $5.00 - Delivery within 30 minutes
+                                                    {% elif option.data == 'standard' %}
+                                                        $2.99 - Standard delivery (45-60 min)
                                                     {% else %}
-                                                    <p>Ready for pickup in 20 minutes<br>Fee: $0.00</p>
+                                                        Free - Pick up from restaurant
                                                     {% endif %}
-                                                </div>
+                                                </small>
                                             </div>
                                         </div>
                                     </div>
@@ -116,15 +142,14 @@
                                 </div>
                                 {% if form.delivery_option.errors %}
                                     {% for error in form.delivery_option.errors %}
-                                        <div class="text-danger mt-2">{{ error }}</div>
+                                        <div class="text-danger">{{ error }}</div>
                                     {% endfor %}
                                 {% endif %}
                             </div>
 
-                            <!-- Address Field -->
                             <div class="mb-3">
                                 {{ form.address.label(class="form-label") }}
-                                {{ form.address(class="form-control", value=current_user.address) }}
+                                {{ form.address(class="form-control", placeholder="Enter delivery address") }}
                                 {% if form.address.errors %}
                                     {% for error in form.address.errors %}
                                         <div class="text-danger">{{ error }}</div>
@@ -132,10 +157,9 @@
                                 {% endif %}
                             </div>
 
-                            <!-- Contact Field -->
                             <div class="mb-3">
                                 {{ form.contact.label(class="form-label") }}
-                                {{ form.contact(class="form-control", value=current_user.contact) }}
+                                {{ form.contact(class="form-control", placeholder="Enter contact number") }}
                                 {% if form.contact.errors %}
                                     {% for error in form.contact.errors %}
                                         <div class="text-danger">{{ error }}</div>
@@ -143,10 +167,10 @@
                                 {% endif %}
                             </div>
 
-                            <!-- Special Instructions Field -->
-                            <div class="mb-4">
+                            <div class="mb-3">
                                 {{ form.special_instructions.label(class="form-label") }}
-                                {{ form.special_instructions(class="form-control", rows=3, placeholder="Add any special delivery instructions here...") }}
+                                {{ form.special_instructions(class="form-control", rows="3", 
+                                   placeholder="Any special instructions for delivery?") }}
                             </div>
 
                             <button type="submit" class="btn btn-success btn-lg w-100">Place Order</button>
@@ -155,7 +179,6 @@
                 </div>
             </div>
 
-            <!-- Order Summary -->
             <div class="col-md-4">
                 <div class="card shadow-sm">
                     <div class="card-body">
@@ -187,27 +210,10 @@
     </div>
     {% endblock %}
 
-    {% block scripts %}
-    <script>
-    document.querySelectorAll('[name="delivery_option"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            // Remove border from all cards
-            document.querySelectorAll('.card').forEach(card => {
-                card.classList.remove('border-success');
-            });
-            // Add border to selected card
-            this.closest('.card').classList.add('border-success');
-        });
-    });
-    </script>
-    {% endblock %}
-
-    <!-- You May Also Like -->
     <section class="py-5 bg-light">
         <div class="container">
             <h3 class="mb-4">Popular Near You</h3>
             <div class="row g-4">
-                <!-- Restaurant 1 -->
                 <div class="col-md-3">
                     <div class="product-card h-100">
                         <div class="wishlist-btn">
@@ -236,7 +242,6 @@
                     </div>
                 </div>
                 
-                <!-- Restaurant 2 -->
                 <div class="col-md-3">
                     <div class="product-card h-100">
                         <div class="wishlist-btn">
@@ -265,7 +270,6 @@
                     </div>
                 </div>
                 
-                <!-- Restaurant 3 -->
                 <div class="col-md-3">
                     <div class="product-card h-100">
                         <div class="wishlist-btn">
@@ -294,7 +298,6 @@
                     </div>
                 </div>
                 
-                <!-- Restaurant 4 -->
                 <div class="col-md-3">
                     <div class="product-card h-100">
                         <div class="wishlist-btn">
@@ -326,7 +329,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-dark text-white pt-5 pb-3">
         <div class="container">
             <div class="row">
@@ -391,11 +393,9 @@
     <script>
     document.querySelectorAll('[name="delivery_option"]').forEach(radio => {
         radio.addEventListener('change', function() {
-            // Remove border from all cards
             document.querySelectorAll('.card').forEach(card => {
                 card.classList.remove('border-success');
             });
-            // Add border to selected card
             this.closest('.card').classList.add('border-success');
         });
     });

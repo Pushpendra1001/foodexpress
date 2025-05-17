@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-    <!-- Top Bar -->
     <div class="top-bar py-2 bg-light">
         <div class="container d-flex justify-content-between align-items-center">
             <div class="top-contact d-none d-md-flex">
@@ -23,7 +24,6 @@
         </div>
     </div>
 
-    <!-- Main Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">
@@ -46,7 +46,9 @@
                             <li><a class="dropdown-item" href="#">Asian</a></li>
                             <li><a class="dropdown-item" href="#">Mexican</a></li>
                             <li><a class="dropdown-item" href="#">Indian</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" href="#">All Cuisines</a></li>
                         </ul>
                     </li>
@@ -75,7 +77,6 @@
         </div>
     </nav>
 
-    <!-- Breadcrumb -->
     <div class="container mt-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -86,7 +87,6 @@
         </nav>
     </div>
 
-    <!-- Checkout Progress -->
     <div class="container mt-3">
         <div class="checkout-progress">
             <div class="row text-center">
@@ -116,7 +116,8 @@
                 </div>
             </div>
             <div class="progress mt-2">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50"
+                    aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
     </div>
@@ -134,26 +135,30 @@
                             <form>
                                 <div class="row g-3">
                                     <div class="col-md-6">
-                                        <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                        <label for="firstName" class="form-label">First Name <span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="firstName" required>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                        <label for="lastName" class="form-label">Last Name <span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="lastName" required>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                        <label for="email" class="form-label">Email <span
+                                                class="text-danger">*</span></label>
                                         <input type="email" class="form-control" id="email" required>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                        <label for="phone" class="form-label">Phone Number <span
+                                                class="text-danger">*</span></label>
                                         <input type="tel" class="form-control" id="phone" required>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    
+
                     <div class="card shadow-sm mb-4">
                         <div class="card-header bg-white">
                             <h4 class="mb-0">Delivery Address</h4>
@@ -162,19 +167,23 @@
                             <form>
                                 <div class="row g-3">
                                     <div class="col-12">
-                                        <label for="address" class="form-label">Street Address <span class="text-danger">*</span></label>
+                                        <label for="address" class="form-label">Street Address <span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="address" required>
                                     </div>
                                     <div class="col-12">
-                                        <label for="address2" class="form-label">Apartment, suite, etc. (optional)</label>
+                                        <label for="address2" class="form-label">Apartment, suite, etc.
+                                            (optional)</label>
                                         <input type="text" class="form-control" id="address2">
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="city" class="form-label">City <span class="text-danger">*</span></label>
+                                        <label for="city" class="form-label">City <span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="city" required>
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="state" class="form-label">State/Province <span class="text-danger">*</span></label>
+                                        <label for="state" class="form-label">State/Province <span
+                                                class="text-danger">*</span></label>
                                         <select class="form-select" id="state" required>
                                             <option value="">Select State</option>
                                             <option value="AL">Alabama</option>
@@ -184,7 +193,8 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="zip" class="form-label">Postal Code <span class="text-danger">*</span></label>
+                                        <label for="zip" class="form-label">Postal Code <span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="zip" required>
                                     </div>
                                     <div class="col-12">
@@ -199,7 +209,7 @@
                             </form>
                         </div>
                     </div>
-                    
+
                     <div class="card shadow-sm mb-4">
                         <div class="card-header bg-white">
                             <h4 class="mb-0">Delivery Options</h4>
@@ -208,8 +218,11 @@
                             <div class="delivery-options">
                                 <div class="delivery-option mb-3">
                                     <div class="form-check custom-radio">
-                                        <input class="form-check-input" type="radio" name="deliveryOption" id="standard" checked>
-                                        <label class="form-check-label d-flex justify-content-between align-items-center" for="standard">
+                                        <input class="form-check-input" type="radio" name="deliveryOption" id="standard"
+                                            checked>
+                                        <label
+                                            class="form-check-label d-flex justify-content-between align-items-center"
+                                            for="standard">
                                             <div>
                                                 <span class="d-block fw-bold">Standard Delivery</span>
                                                 <span class="text-muted small">30-45 minutes</span>
@@ -221,7 +234,9 @@
                                 <div class="delivery-option mb-3">
                                     <div class="form-check custom-radio">
                                         <input class="form-check-input" type="radio" name="deliveryOption" id="express">
-                                        <label class="form-check-label d-flex justify-content-between align-items-center" for="express">
+                                        <label
+                                            class="form-check-label d-flex justify-content-between align-items-center"
+                                            for="express">
                                             <div>
                                                 <span class="d-block fw-bold">Express Delivery</span>
                                                 <span class="text-muted small">20-30 minutes</span>
@@ -233,7 +248,9 @@
                                 <div class="delivery-option">
                                     <div class="form-check custom-radio">
                                         <input class="form-check-input" type="radio" name="deliveryOption" id="pickup">
-                                        <label class="form-check-label d-flex justify-content-between align-items-center" for="pickup">
+                                        <label
+                                            class="form-check-label d-flex justify-content-between align-items-center"
+                                            for="pickup">
                                             <div>
                                                 <span class="d-block fw-bold">Pickup</span>
                                                 <span class="text-muted small">Ready in 15-20 minutes</span>
@@ -245,7 +262,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="card shadow-sm mb-4">
                         <div class="card-header bg-white">
                             <h4 class="mb-0">Delivery Time</h4>
@@ -254,7 +271,8 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="deliveryTime" id="asap" checked>
+                                        <input class="form-check-input" type="radio" name="deliveryTime" id="asap"
+                                            checked>
                                         <label class="form-check-label" for="asap">
                                             Deliver ASAP
                                         </label>
@@ -290,16 +308,17 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="card shadow-sm mb-4">
                         <div class="card-header bg-white">
                             <h4 class="mb-0">Special Instructions (optional)</h4>
                         </div>
                         <div class="card-body">
-                            <textarea class="form-control" id="instructions" rows="3" placeholder="Add any special delivery instructions, dietary requirements, or notes for your order"></textarea>
+                            <textarea class="form-control" id="instructions" rows="3"
+                                placeholder="Add any special delivery instructions, dietary requirements, or notes for your order"></textarea>
                         </div>
                     </div>
-                    
+
                     <div class="d-grid gap-2 d-md-flex justify-content-md-between">
                         <a href="checkout.html" class="btn btn-outline-success">
                             <i class="bi bi-arrow-left me-2"></i>Return to Cart
@@ -309,7 +328,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 mt-4 mt-lg-0">
                     <div class="card shadow-sm mb-4 sticky-top" style="top: 100px;">
                         <div class="card-header bg-white">
@@ -319,7 +338,8 @@
                             <div class="order-items mb-4">
                                 <div class="order-item d-flex mb-3">
                                     <div class="order-item-img me-3">
-                                        <img src="images/Lasagna Classica.jpg" alt="Food" class="img-fluid rounded" width="60">
+                                        <img src="images/Lasagna Classica.jpg" alt="Food" class="img-fluid rounded"
+                                            width="60">
                                         <span class="badge bg-secondary position-absolute">1</span>
                                     </div>
                                     <div class="order-item-info flex-grow-1">
@@ -332,7 +352,8 @@
                                 </div>
                                 <div class="order-item d-flex">
                                     <div class="order-item-img me-3">
-                                        <img src="images/Appetizers.webp" alt="Food" class="img-fluid rounded" width="60">
+                                        <img src="images/Appetizers.webp" alt="Food" class="img-fluid rounded"
+                                            width="60">
                                         <span class="badge bg-secondary position-absolute">1</span>
                                     </div>
                                     <div class="order-item-info flex-grow-1">
@@ -344,14 +365,14 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="promo-code mb-4">
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Promo code">
                                     <button class="btn btn-outline-success" type="button">Apply</button>
                                 </div>
                             </div>
-                            
+
                             <div class="order-summary">
                                 <div class="d-flex justify-content-between mb-2">
                                     <span>Subtotal</span>
@@ -373,13 +394,16 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h5 class="mb-3">Need Help?</h5>
-                            <p class="mb-2"><i class="bi bi-question-circle me-2"></i> <a href="#" class="text-decoration-none">Delivery Information</a></p>
-                            <p class="mb-2"><i class="bi bi-arrow-return-left me-2"></i> <a href="#" class="text-decoration-none">Cancellation Policy</a></p>
-                            <p class="mb-0"><i class="bi bi-chat-dots me-2"></i> <a href="#" class="text-decoration-none">Contact Support</a></p>
+                            <p class="mb-2"><i class="bi bi-question-circle me-2"></i> <a href="#"
+                                    class="text-decoration-none">Delivery Information</a></p>
+                            <p class="mb-2"><i class="bi bi-arrow-return-left me-2"></i> <a href="#"
+                                    class="text-decoration-none">Cancellation Policy</a></p>
+                            <p class="mb-0"><i class="bi bi-chat-dots me-2"></i> <a href="#"
+                                    class="text-decoration-none">Contact Support</a></p>
                         </div>
                     </div>
                 </div>
@@ -393,7 +417,8 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                     <h5 class="mb-3">FoodExpress</h5>
-                    <p class="mb-3">Your favorite restaurants delivered to your doorstep. Fast, reliable, and delicious.</p>
+                    <p class="mb-3">Your favorite restaurants delivered to your doorstep. Fast, reliable, and delicious.
+                    </p>
                     <div class="social-links">
                         <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="me-2"><i class="bi bi-twitter"></i></a>
@@ -401,7 +426,7 @@
                         <a href="#"><i class="bi bi-youtube"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                     <h5 class="mb-3">Quick Links</h5>
                     <ul class="list-unstyled">
@@ -412,18 +437,19 @@
                         <li><a href="#" class="text-white text-decoration-none">Blog</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                     <h5 class="mb-3">Customer Service</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="#" class="text-white text-decoration-none">My Account</a></li>
                         <li class="mb-2"><a href="#" class="text-white text-decoration-none">Track Order</a></li>
                         <li class="mb-2"><a href="#" class="text-white text-decoration-none">Delivery Policy</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Refunds & Cancellations</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Refunds & Cancellations</a>
+                        </li>
                         <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                     <h5 class="mb-3">Contact Us</h5>
                     <ul class="list-unstyled contact-info">
@@ -434,9 +460,9 @@
                     </ul>
                 </div>
             </div>
-            
+
             <hr class="my-4">
-            
+
             <div class="row align-items-center">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                     <p class="mb-0">&copy; 2025 FoodExpress. All rights reserved.</p>
@@ -450,14 +476,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Show/hide scheduled delivery time options
-        document.getElementById('scheduled').addEventListener('change', function() {
+
+        document.getElementById('scheduled').addEventListener('change', function () {
             document.getElementById('scheduleTimeContainer').style.display = 'block';
         });
-        
-        document.getElementById('asap').addEventListener('change', function() {
+
+        document.getElementById('asap').addEventListener('change', function () {
             document.getElementById('scheduleTimeContainer').style.display = 'none';
         });
     </script>
 </body>
+
 </html>
