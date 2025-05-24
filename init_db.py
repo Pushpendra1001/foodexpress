@@ -113,7 +113,7 @@ def init_db():
         
         
         print("Setting up admin user...")
-        admin = User.query.filter_by(email='admin@example.com').first()
+        admin = User.query.filter_by(email='admin@gmail.com').first()
         if not admin:
             admin = User(
                 username='admin',
